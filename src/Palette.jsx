@@ -1,10 +1,14 @@
-import React from "react";
-import Colors from "./Colors";
+import React, { useEffect } from "react";
+import Color from "./Color";
 import "./Palette.css";
 
 const tinycolor = require("tinycolor2");
 
-export default function Palette({ hex, variation, setting, settingValue }) {
+export default function Palette({ settings, hex, variation, oldSetting, oldSettingValue }) {
+  useEffect(() => {
+    applySettings(tinycolor(hex))
+  }, [settings])
+  
   let colors;
   // Using a switch to set variation type set
   switch (variation) {
@@ -32,27 +36,47 @@ export default function Palette({ hex, variation, setting, settingValue }) {
   }
 
   // Using a dictionary object to set setting
-  const settings = color => {
-    const converter = {
-      lighten: tinycolor(color).lighten(settingValue).toString(),
-      brighten: tinycolor(color).brighten(settingValue).toString(),
-      darken: tinycolor(color).darken(settingValue).toString(),
-      desaturate: tinycolor(color).desaturate(settingValue).toString(),
-      saturate: tinycolor(color).saturate(settingValue).toString(),
-      greyscale: tinycolor(color).greyscale(settingValue).toString(),
-      default: color
-    };
+  // const settings = color => {
+  //   const converter = {
+  //     lighten: tinycolor(color).lighten(oldSettingValue).toString(),
+  //     brighten: tinycolor(color).brighten(oldSettingValue).toString(),
+  //     darken: tinycolor(color).darken(oldSettingValue).toString(),
+  //     desaturate: tinycolor(color).desaturate(oldSettingValue).toString(),
+  //     saturate: tinycolor(color).saturate(oldSettingValue).toString(),
+  //     greyscale: tinycolor(color).greyscale(oldSettingValue).toString(),
+  //     default: color
+  //   };
 
-    return converter[setting];
-  };
+  //   return converter[oldSetting];
+  // };
 
   if (!Array.isArray(colors)) {
-    return <Colors hex={colors} />;
+    return <Color hex={colors} />;
   }
   
+  // const colorPalette = colors.map(color => {
+  //   const hexColor = settings(color.toHexString());
+  //   return <Color hex={hexColor} />;
+  // });
+
+  const applySetting = (color, [name, percent]) => (
+    name === 'lighten' ? color.lighten(percent)
+      : name === 'brighten' ? color.brighten(percent)
+      : name === 'darken' ? color.darken(percent)
+      : name === 'saturate' ? color.saturate(percent)
+      : name === 'desaturate' ? color.desaturate(percent)
+      : color
+  );
+  
+  const applySettings = color => (
+    Object.entries(settings)
+      .reduce(applySetting, color)
+      .toHexString()
+  );
+
   const colorPalette = colors.map(color => {
-    let hexColor = settings(color.toHexString());
-    return <Colors hex={hexColor} />;
+    const hex = applySettings(color);
+    return <Color hex={hex} />;
   });
 
   return <div id="container">{colorPalette}</div>;

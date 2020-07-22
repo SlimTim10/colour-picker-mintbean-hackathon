@@ -8,3 +8,11 @@
   display: flex;
   height: 100%;
 }
+
+.hex-value {
+  position: relative;
+  margin: auto;
+  padding-top: 75vh;
+  font-size: 3vw;
+  font-family: monospace;
+}
