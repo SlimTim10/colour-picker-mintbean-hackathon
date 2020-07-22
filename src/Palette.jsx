@@ -39,12 +39,14 @@ export default function Palette({ settings, hex, variation }) {
     return <Color hex={colors} />;
   }
   
-  const applySetting = (color, [name, percent]) => (
-    name === 'lighten' ? color.lighten(percent)
-      : name === 'brighten' ? color.brighten(percent)
-      : name === 'darken' ? color.darken(percent)
-      : name === 'saturate' ? color.saturate(percent)
-      : name === 'desaturate' ? color.desaturate(percent)
+  const applySetting = (color, [name, {type, value}]) => (
+    name === 'lighten' ? color.lighten(value)
+      : name === 'brightness' ? (
+        value >= 100 ? color.brighten(value - 100) : color.darken(100 - value)
+      )
+      : name === 'saturation' ? (
+        value >= 100 ? color.saturate(value - 100) : color.desaturate(100 - value)
+      )
       : color
   );
   

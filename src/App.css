@@ -49,3 +49,8 @@
 .setting-percent {
   font-family: sans-serif;
 }
+
+.list-group-item button {
+  font-size: 0.45em;
+  font-family: sans-serif;
+}
