@@ -8,8 +8,6 @@ import Palette from "./Palette";
 function App() {
   const [hex, changeHex] = useState("#5f42ad");
   const [variation, changeVariation] = useState("analogous");
-  const [oldSetting, changeOldSetting] = useState("default");
-  const [oldSettingValue, changeOldSettingValue] = useState(20);
 
   const defaultSettings = {
     lighten: 0,
@@ -29,7 +27,7 @@ function App() {
             <Settings {...{settings, setSettings}} />
           </Col>
           <Col>
-            <Palette {...{settings, variation, hex, oldSettingValue, oldSetting}}/>
+            <Palette {...{settings, variation, hex}}/>
           </Col>
         </Row>
       </Container>

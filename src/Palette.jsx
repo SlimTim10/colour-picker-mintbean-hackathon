@@ -4,7 +4,7 @@ import "./Palette.css";
 
 const tinycolor = require("tinycolor2");
 
-export default function Palette({ settings, hex, variation, oldSetting, oldSettingValue }) {
+export default function Palette({ settings, hex, variation }) {
   useEffect(() => {
     applySettings(tinycolor(hex))
   }, [settings])
@@ -35,30 +35,10 @@ export default function Palette({ settings, hex, variation, oldSetting, oldSetti
       break;
   }
 
-  // Using a dictionary object to set setting
-  // const settings = color => {
-  //   const converter = {
-  //     lighten: tinycolor(color).lighten(oldSettingValue).toString(),
-  //     brighten: tinycolor(color).brighten(oldSettingValue).toString(),
-  //     darken: tinycolor(color).darken(oldSettingValue).toString(),
-  //     desaturate: tinycolor(color).desaturate(oldSettingValue).toString(),
-  //     saturate: tinycolor(color).saturate(oldSettingValue).toString(),
-  //     greyscale: tinycolor(color).greyscale(oldSettingValue).toString(),
-  //     default: color
-  //   };
-
-  //   return converter[oldSetting];
-  // };
-
   if (!Array.isArray(colors)) {
     return <Color hex={colors} />;
   }
   
-  // const colorPalette = colors.map(color => {
-  //   const hexColor = settings(color.toHexString());
-  //   return <Color hex={hexColor} />;
-  // });
-
   const applySetting = (color, [name, percent]) => (
     name === 'lighten' ? color.lighten(percent)
       : name === 'brighten' ? color.brighten(percent)
