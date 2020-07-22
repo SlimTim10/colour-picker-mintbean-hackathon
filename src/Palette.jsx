@@ -40,24 +40,20 @@ export default function Palette({ hex, variation, setting, settingValue }) {
       desaturate: tinycolor(color).desaturate(settingValue).toString(),
       saturate: tinycolor(color).saturate(settingValue).toString(),
       greyscale: tinycolor(color).greyscale(settingValue).toString(),
-      undefined: color,
+      undefined: color
     };
 
     return converter[setting];
   };
 
-  let colorPalette;
   if (!Array.isArray(colors)) {
     return <Colors hex={colors} />;
-  } else {
-    colorPalette = colors.map(t => {
-      let hexColor = t.toHexString();
-
-      hexColor = settings(hexColor);
-
-      return <Colors hex={hexColor} />;
-    });
   }
+  
+  const colorPalette = colors.map(color => {
+    let hexColor = settings(color.toHexString());
+    return <Colors hex={hexColor} />;
+  });
 
   return <div id="container">{colorPalette}</div>;
 }
