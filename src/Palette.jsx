@@ -40,7 +40,7 @@ export default function Palette({ hex, variation, setting, settingValue }) {
       desaturate: tinycolor(color).desaturate(settingValue).toString(),
       saturate: tinycolor(color).saturate(settingValue).toString(),
       greyscale: tinycolor(color).greyscale(settingValue).toString(),
-      undefined: color
+      default: color
     };
 
     return converter[setting];

@@ -6,7 +6,7 @@ import Settings from "./Navbar";
 function App() {
   const [hex, changeHex] = useState("#5f42ad");
   const [variation, changeVariation] = useState("analogous");
-  const [setting, changeSetting] = useState();
+  const [setting, changeSetting] = useState("default");
   const [settingValue, changeSettingValue] = useState(20);
 
   return (
